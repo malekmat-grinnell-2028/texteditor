@@ -4,36 +4,52 @@ package edu.grinnell.csc207.texteditor;
  * A naive implementation of a text buffer using a <code>String</code>.
  */
 public class SimpleStringBuffer {
+    public int index;
+    public String str;
+
+    public SimpleStringBuffer() {
+        index = 0;
+        str = "";
+    }
+
     public void insert(char ch) {
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        str = str.substring(0, index) + ch + str.substring(index, str.length());
+        moveRight();
     }
 
     public void delete() {
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        if(index > 0) {
+            str = str.substring(0, index-1) + str.substring(index, str.length());
+            moveLeft();
+        }
     }
 
     public int getCursorPosition() {
-        throw new UnsupportedOperationException("Unimplemented method 'getCursorPosition'");
+        return index;
     }
 
     public void moveLeft() {
-        throw new UnsupportedOperationException("Unimplemented method 'moveLeft'");
+        if(index > 0) {
+            index -= 1;
+        }
     }
 
     public void moveRight() {
-        throw new UnsupportedOperationException("Unimplemented method 'moveRight'");
+        if(index < str.length()) {
+            index += 1;
+        }
     }
 
     public int getSize() {
-        throw new UnsupportedOperationException("Unimplemented method 'getSize'");
+        return str.length();
     }
 
     public char getChar(int i) {
-        throw new UnsupportedOperationException("Unimplemented method 'getChar'");
+        return str.charAt(i);
     }
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Unimplemented method 'toString'");
+        return str;
     }
 }
