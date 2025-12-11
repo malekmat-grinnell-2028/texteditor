@@ -5,8 +5,11 @@ package edu.grinnell.csc207.texteditor;
  * A gap buffer-based implementation of a text buffer.
  */
 public class GapBuffer {
+
     int index1;
+
     int index2;
+    
     char[] arr;
 
     /**
@@ -23,10 +26,11 @@ public class GapBuffer {
      * @param ch the character to be inserted
      */
     public void insert(char ch) {
-        if(index1 == index2) {
+        if (index1 == index2) {
             char[] tempArr = new char[2 * arr.length];
             System.arraycopy(arr, 0, tempArr, 0, index1);
-            System.arraycopy(arr, index2, tempArr, tempArr.length - (arr.length - index2), arr.length-index2);
+            System.arraycopy(arr, index2, tempArr, tempArr.length
+                - (arr.length - index2), arr.length - index2);
             index2 = tempArr.length - (arr.length - index2);
             arr = tempArr;
             arr[index1] = ch;
@@ -41,7 +45,7 @@ public class GapBuffer {
      * deletes the character at index1
      */
     public void delete() {
-        if(index1 > 0) {
+        if (index1 > 0) {
             index1 -= 1;
         }
     }
@@ -58,7 +62,7 @@ public class GapBuffer {
      * moves the cursor in GapBuffer one character to the left
      */
     public void moveLeft() {
-        if(index1 > 0) {
+        if (index1 > 0) {
             index2 -= 1;
             index1 -= 1;
             arr[index2] = arr[index1];
@@ -69,7 +73,7 @@ public class GapBuffer {
      * moves the cursor in GapBuffer one character to the right
      */
     public void moveRight() {
-        if(index2 < arr.length) {
+        if (index2 < arr.length) {
             index1 += 1;
             arr[index1] = arr[index2];
             index2 += 1;

@@ -4,7 +4,9 @@ package edu.grinnell.csc207.texteditor;
  * A naive implementation of a text buffer using a <code>String</code>.
  */
 public class SimpleStringBuffer {
+
     public int index;
+    
     public String str;
 
     /**
@@ -28,8 +30,8 @@ public class SimpleStringBuffer {
      * deletes the char in the simpleStringBuffer behind the cursor
      */
     public void delete() {
-        if(index > 0) {
-            str = str.substring(0, index-1) + str.substring(index, str.length());
+        if (index > 0) {
+            str = str.substring(0, index - 1) + str.substring(index, str.length());
             moveLeft();
         }
     }
@@ -45,7 +47,7 @@ public class SimpleStringBuffer {
      * moves the cursor left one character
      */
     public void moveLeft() {
-        if(index > 0) {
+        if (index > 0) {
             index -= 1;
         }
     }
@@ -54,7 +56,7 @@ public class SimpleStringBuffer {
      * moves the cursor right one character
      */
     public void moveRight() {
-        if(index < str.length()) {
+        if (index < str.length()) {
             index += 1;
         }
     }

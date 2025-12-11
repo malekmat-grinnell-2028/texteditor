@@ -17,6 +17,12 @@ import com.googlecode.lanterna.screen.Screen;
  * The driver for the TextEditor Application.
  */
 public class TextEditor {
+
+    /**
+     * the main method
+     * @param args the file path as a string
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         DefaultTerminalFactory factory = new DefaultTerminalFactory();
         Screen screen = factory.createScreen();
@@ -31,10 +37,10 @@ public class TextEditor {
         StringBuffer fileContents = new StringBuffer();
         String path = args[0];
         System.out.format("Loading %s...\n", path);
-        if(Files.exists(Paths.get(path))) {
+        if (Files.exists(Paths.get(path))) {
             fileContents.append(Files.readString(Paths.get(path)));
             
-            for(int i =0; i<fileContents.length(); i++) {
+            for (int i = 0; i < fileContents.length(); i++) { 
                 text.insert(fileContents.charAt(i));
             }
         }
@@ -43,16 +49,16 @@ public class TextEditor {
         drawBuffer(text, screen, fileContents);
         while (isRunning) {
             KeyStroke stroke = screen.readInput();
-            fileContents.delete(0,fileContents.length());
-            if(stroke.getKeyType().equals(KeyType.Escape)) {
+            fileContents.delete(0, fileContents.length());
+            if (stroke.getKeyType().equals(KeyType.Escape)) {
                 isRunning = false;
-            } else if(stroke.getKeyType().equals(KeyType.Character)){
+            } else if (stroke.getKeyType().equals(KeyType.Character)) { 
                 text.insert(stroke.getCharacter());
-            } else if(stroke.getKeyType().equals(KeyType.ArrowLeft)){
+            } else if (stroke.getKeyType().equals(KeyType.ArrowLeft)) { 
                 text.moveLeft();
-            }else if(stroke.getKeyType().equals(KeyType.ArrowRight)){
+            } else if (stroke.getKeyType().equals(KeyType.ArrowRight)) { 
                 text.moveRight();
-            }else if(stroke.getKeyType().equals(KeyType.Backspace)){
+            } else if (stroke.getKeyType().equals(KeyType.Backspace)) { 
                 text.delete();
             }
             
@@ -69,20 +75,21 @@ public class TextEditor {
      * @param fileContents the contents of the file being edited
      * @throws IOException
      */
-    public static void drawBuffer(GapBuffer buf, Screen screen, StringBuffer fileContents) throws IOException {
+    public static void drawBuffer(GapBuffer buf, Screen screen, StringBuffer fileContents) 
+        throws IOException {
         screen.clear();
         TerminalPosition t = new TerminalPosition(0, 0);
         screen.setCursorPosition(t);
-        for(int i = 0; i < buf.index1; i++){
+        for (int i = 0; i < buf.index1; i++) {
             char c = buf.getChar(i);
             fileContents.append(c);
             screen.setCharacter(t, TextCharacter.fromCharacter(c)[0]);
             t = t.withRelativeColumn(1);
         }
         RGB col = new RGB(0, 0, 0);
-        screen.setCharacter(t, TextCharacter.fromCharacter('#',col, col)[0]);
+        screen.setCharacter(t, TextCharacter.fromCharacter('#', col, col)[0]);
         t = t.withRelativeColumn(1);
-        for(int i = buf.index2; i < buf.getAllocatedMemory(); i++){
+        for (int i = buf.index2; i < buf.getAllocatedMemory(); i++) {
             char c = buf.getChar(i);
             fileContents.append(c);
             screen.setCharacter(t, TextCharacter.fromCharacter(c)[0]);
