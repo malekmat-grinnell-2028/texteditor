@@ -82,7 +82,7 @@ public class TextEditor {
         RGB col = new RGB(0, 0, 0);
         screen.setCharacter(t, TextCharacter.fromCharacter('#',col, col)[0]);
         t = t.withRelativeColumn(1);
-        for(int i = buf.index2; i < buf.getSize(); i++){
+        for(int i = buf.index2; i < buf.getAllocatedMemory(); i++){
             char c = buf.getChar(i);
             fileContents.append(c);
             screen.setCharacter(t, TextCharacter.fromCharacter(c)[0]);

@@ -80,6 +80,13 @@ public class GapBuffer {
      * @return the size of GapBuffer
      */
     public int getSize() {
+        return index1 + (arr.length - index2);
+    }
+
+    /**
+     * @return the memory allocated to GapBuffer
+     */
+    public int getAllocatedMemory() {
         return arr.length;
     }
 
